@@ -23,4 +23,27 @@ app.get('/api/health', (req, res) => {
     res.status(200).json({ status: 'ok' });
 });
 
+// Database Connection Check
+app.get('/api/db-check', async (req, res) => {
+    const mongoose = require('mongoose');
+    const status = mongoose.connection.readyState;
+    // 0: disconnected, 1: connected, 2: connecting, 3: disconnecting
+    const statusText = {
+        0: 'Disconnected',
+        1: 'Connected',
+        2: 'Connecting',
+        3: 'Disconnecting'
+    };
+
+    try {
+        res.status(200).json({
+            connectionState: status,
+            statusText: statusText[status] || 'Unknown',
+            host: mongoose.connection.host
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = app;
