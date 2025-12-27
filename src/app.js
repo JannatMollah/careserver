@@ -11,6 +11,7 @@ app.use(cors());
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
+app.use('/api/payment', require('./routes/paymentRoutes'));
 
 // Basic Route
 app.get('/', (req, res) => {

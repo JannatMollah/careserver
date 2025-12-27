@@ -7,8 +7,7 @@ const bookingSchema = new mongoose.Schema({
         required: true,
     },
     service: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Service',
+        type: String, // Storing service ID/Slug from client (e.g., 'baby-care')
         required: true,
     },
     duration: {
@@ -30,6 +29,17 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         enum: ['Pending', 'Confirmed', 'Completed', 'Cancelled'],
         default: 'Pending',
+    },
+    paymentStatus: {
+        type: String,
+        default: 'Pending', // Pending, Paid, Failed
+    },
+    transactionId: {
+        type: String,
+    },
+    date: {
+        type: Date,
+        default: Date.now,
     },
 }, { timestamps: true });
 

@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    address: {
+        type: String,
+        default: '',
+    },
+    location: {
+        type: String, // e.g., "Dhaka, Banani" or coordinates if needed later
+        default: '',
+    },
     role: {
         type: String,
         enum: ['user', 'admin'],
