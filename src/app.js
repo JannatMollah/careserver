@@ -3,9 +3,22 @@ const cors = require('cors');
 
 const app = express();
 
+const connectDB = require('./config/db');
+
 // Middleware
 app.use(express.json());
 app.use(cors());
+
+// Ensure Database Connection
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        console.error('Database Connection Error in Middleware:', error);
+        res.status(500).json({ message: 'Database Connection Failed', error: error.message });
+    }
+});
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
